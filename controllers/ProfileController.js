@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Profile = require('../models//Profile');
+const Profile = require('../models/Profile');
 const connect = require('../services/db')
 
 const ProfileController = {
@@ -15,7 +15,6 @@ const ProfileController = {
     } catch (error) {
         res.json(error);
     }
-   
   },
 
   index: async (req, res) => {
@@ -34,7 +33,6 @@ const ProfileController = {
 
   show: async (req, res) => {
     try {
-        
         await Profile.findById(req.params.id).then(user=>{
             if(!user) 
                 res.json("Profile Not Found");
@@ -48,21 +46,19 @@ const ProfileController = {
   },
 
   update: async (req, res) => {
-    // Logic for updating a user goes here
-try {
-    
-    await Profile.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, user) => {
-         if (err) {
-           res.status(500).send(err);
-         } else if (!user) {
-           res.status(404).send("Profile not found");
-         } else {
-           res.json(user);
-         }
-       });
-} catch (error) {
-    res.json(error)
-}
+      try {
+          await Profile.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, user) => {
+              if (err) {
+                res.status(500).send(err);
+              } else if (!user) {
+                res.status(404).send("Profile not found");
+              } else {
+                res.json(user);
+              }
+            });
+      } catch (error) {
+          res.json(error)
+      }
   },
 
   delete:async (req, res) => {

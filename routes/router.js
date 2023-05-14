@@ -17,8 +17,7 @@ router.get('/users', UserController.index);
 router.get('/users/:id', UserController.show);
 router.put('/users/:id', UserController.update);
 router.delete('/users/:id', UserController.delete);
-
-
+ 
 //profile route
 router.get('/profiles', ProfileController.index);
 router.get('/profiles/:id', ProfileController.show);
