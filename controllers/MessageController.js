@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Message = require('../models/Message');
 const connect = require('../services/db')
+const io = require('./sockets/socket') 
+
 
 
 const MessageController = {
@@ -10,7 +12,12 @@ const MessageController = {
             const message = await new Message(req.body);
             message.save().then(message=>{
               res.json(message)
+              //emit message from server throgh socket to client quickly
+              io.emit('messageToRoom', message);
+              res.status(200);
+
             }).catch(err=>{
+              res.status(500)
               res.json(err)
             })
         } catch (error) {
